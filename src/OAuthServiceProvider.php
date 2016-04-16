@@ -4,6 +4,11 @@ use Illuminate\Support\ServiceProvider;
 use OAuth\ServiceFactory;
 use OAuth\Common\Storage\SymfonySession;
 
+/**
+ * Class OAuthServiceProvider
+ *
+ * @package Jenssegers\OAuth
+ */
 class OAuthServiceProvider extends ServiceProvider {
 
     /**
@@ -23,7 +28,7 @@ class OAuthServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->bindShared('oauth', function($app)
+        $this->app->singleton('oauth', function($app)
         {
             $factory = new ServiceFactory;
 
