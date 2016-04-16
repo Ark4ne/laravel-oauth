@@ -53,13 +53,10 @@ Install using composer:
 
     composer require jenssegers/oauth
 
-Add the service provider in `app/config/app.php`:
+Add the service provider in `config/app.php`:
 
-    'Jenssegers\OAuth\OAuthServiceProvider',
-
-Add the OAuth alias to `app/config/app.php`:
-
-    'OAuth'            => 'Jenssegers\OAuth\Facades\OAuth',
+    /* OAuth Service Providers... */
+    Jenssegers\OAuth\OAuthServiceProvider::class,
 
 Configuration
 -------------
@@ -89,23 +86,26 @@ Example
 -------
 
 Example usage for the Facebook API.
+(laravel 5 example)
 
-    $facebook = OAuth::consumer('facebook');
+    public function getOauthFacebook(Request $request) {
+        $facebook = OAuth::consumer('facebook');
 
-    // Response from Facebook
-    if ($code = Input::get('code'))
-    {
-        $token = $facebook->requestAccessToken($code);
+        // Response from Facebook
+        if ($code = $request->input('code'))
+        {
+            $token = $facebook->requestAccessToken($code);
 
-        $result = json_decode($facebook->request('/me'), true);
+            $result = json_decode($facebook->request('/me'), true);
 
-        echo 'Your unique facebook user id is: ' . $result['id'] . ' and your name is ' . $result['name'];
-    }
+            echo 'Your unique facebook user id is: ' . $result['id'] . ' and your name is ' . $result['name'];
+        }
 
-    // Redirect to login
-    else
-    {
-        return Redirect::away((string) $facebook->getAuthorizationUri());
+        // Redirect to login
+        else
+        {
+            return redirect()->away((string) $facebook->getAuthorizationUri());
+        }
     }
 
 For more examples check out [PHPoAuthLib](https://github.com/Lusitanian/PHPoAuthLib/tree/master/examples).
