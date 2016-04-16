@@ -1,6 +1,7 @@
 <?php namespace Jenssegers\OAuth;
 
-use App, Config, URL;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\URL;
 use OAuth\ServiceFactory;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\Common\Storage\TokenStorageInterface;
